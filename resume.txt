@@ -1,0 +1,54 @@
+Enmanuel Bueno
+Maywood, New Jersey | enmanuel.bueno04@gmail.com | 2016471828 
+EDUCATION
+
+
+
+New Jersey Institute of Technology						 Bachelor of Science in Computer Science
+Newark, NJ 										 Expected Fall 2026 • GPA: 3.549
+• Dean’s List honor for all semester in recognition of outstanding academic achievement.
+• Coursework: Operating Systems Design, Intensive Programming in Linux, Linear Algebra, Database System Design and Management, Guided Design in Software Engineering, Artificial Intelligence, Programming Interactive Computer Graphics
+
+EXPERIENCE
+
+
+
+Quantum Pulse Consulting 								         Software Engineering Intern
+January 2026 - August 2026 											 Remote
+• Led 2 full-stack software projects across a 6-intern engineering team, defining sprint goals, setting deadlines, and delivering 70 releases on schedule using Agile Scrum while guiding interns through code reviews, pair programming, and technical guidance, helping them ship merged features independently. 
+• Reviewed 50+ git pull requests and resolved merge conflicts across shared branches, enforcing code-quality standards and branching conventions that cut integration issues and kept the team's workflow unblocked.
+• Deployed and operated 2 production applications on AWS CloudFront, managing cloud environments, release cycles, monitoring and production incidents to maintain 99.7% uptime of application services. 
+• Increased user navigation efficiency by 72% to improve user experience by redesigning key workflows and UI components in React, validated through user testing, developed site analytics and task-completion timings. 
+• Integrated the OpenAI API into a FastAPI backend to turn natural-language input into structured tasks and events, with follow-up questions and AI-drafted replies, achieving 79% parsing accuracy in testing.
+• Built 30+ modular REST endpoints on Cloud Firestore and Firebase Auth, and implemented role-based access control aligned with Firestore security rules to enforce team-scoped data isolation.
+
+Community Chest of Eastern Bergen County			      Graphic Designer, Videographer and Database Manager
+October 2022 - September 2023 										  Englewood, NJ
+• Authored a design system and style guide for the 90th anniversary campaign, defining typography, color palettes, and asset specifications that kept 60 print and digital deliverables visually consistent.
+• Managed a DonorPerfect database of 500+ sponsors and donors, maintaining accurate contact and contribution records to support annual appeal and event outreach.
+
+ACADEMIC PROJECTS
+
+
+
+Health and Fitness Application Frontend Developer 		                   Guided Design in Software Engineering Course
+cs-490-group-frontend.vercel.app 								            January 2026 - April 2026
+• Designed UI/UX specifications in Figma for 85% of site pages, translating application requirements into intuitive interfaces and development-ready design documentation.
+• Collaborated closely with backend developers to integrate APIs, and ensure seamless communication between frontend interfaces and backend services.
+• Automated UI testing with Selenium to validate and improve 90% of application features, increasing test coverage and ensuring reliability across critical user workflows.
+• Developed and tested key frontend user and admin features, including onboarding surveys, coach applications and approvals, user management, payment methods, and workout log deletion.
+
+Multi-media Linux Database Server							             		 Personal Project
+https://bueno-media.duckdns.org/web/ 								May 2025 - August 2025
+• Deployed and managed Docker containers running Immich for photo backup and Jellyfin for video steaming, hosting 24TB of media from hard drives setup in Raid 1 configuration for redundancy and achieving 99.9% uptime.
+• Configured OpenVPN to provide secure remote access to local networks for 12 remote users using certificate-based authentication, firewall rules and port forwarding, strengthening network security and enabling reliable connectivity.
+
+SKILLS
+
+
+
+Languages: Java, C++, C, C#, Python, JavaScript, HTML, CSS, Bash, SQL, WGSL, TypeScript, JSON, Shell
+Frameworks and Libraries: React, Angular, Tailwind CSS, WebGPU, Selenium, pandas, Tensorflow, PyTorch, scikit-learn 
+Cloud and DevOps: AWS CloudFront, Firebase, Docker, OpenVPN, Linux, Github Actions
+Databases: MySQL, MongoDB, DBeaver, PostgreSQL, Firestore
+Tools: Git, Jira, Coda, Slack, Figma, Unity, Cursor, Microsoft Office, DonorPerfect

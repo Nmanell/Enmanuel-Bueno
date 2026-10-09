@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./resources/style.css">
+    <title>
+        A1 | Bueno, Enmanuel, 31635407
+    </title>
+
+    <script type="text/javascript" src="./resources/math.js"></script>
+    <script type="text/javascript" src="./resources/color.js"></script>
+    <script type="text/javascript" src="task13.js"></script>
+</head>
+
+<body onload="main();">
+    <div class="content">
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h1>New Jersey Institute of Technology<br /> Interactive Computer Graphics CS 438 / CS 657</h1>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="display: initial;">
+            <h2>Assignment 1</h2>
+            <p>
+                Author: Bueno, Enmanuel, 31635407
+            </p>
+            <h3>Date: <b style="color:tomato;">2/11/2026</b></h3>
+            <h3>Due: <b style="color:tomato;">2/25/2026</b></h3>
+            <p>Go to <a href="index.html">Assignment Home</a> | <a href="task11.html">Task 1</a> | <a
+                    href="task12.html">Task 2</a> | <a href="task13.html">Task 3</a> | <a href="task14.html">Task 4</a>
+            </p>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="display: initial;">
+            <div class="taskdiv">
+                <h2>Task 3 (6 points)</h2>
+                <p>
+                    <b>Search for TODO_A1 in the JS file to find all tasks in the code!</b>
+                </p>
+                <p>Drawing of 3D objects:</p>
+                <p>
+                    3a: Create a 3d <a href="https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle">Sierpinski
+                        Gasket</a> geometry composed of regular <a
+                        href="https://en.wikipedia.org/wiki/Tetrahedron">tetrahedra</a> by calling this function
+                    recursively. Use the argument 'recursions' to specify the depth of the recursion. Use the function
+                    mix(a, b, lambda) for both the vertex and color interpolation with lambda = 0.5 (3 points).
+                </p>
+                <p>
+                    3b: Extend the vertex stage to handle 3d positions as input attributes (1 point).
+                </p>
+                <p>
+                    3c: Adjust the vertex buffer layout for positions and colors accordingly for usage of 3d points. In
+                    particular, you need to take care of the size, stride, and offset values of the buffer (1 point).
+                </p>
+                <p>
+                    3d: Adjust the draw-call parameters in order to be able to deal with the new vertex buffer layout
+                    which now contains 3d floating-point positions (1 point).
+                </p>
+                <p>
+                    Your result should look like in the image below, however, you can choose your own colors for the
+                    faces of the tetrahedra.
+                </p>
+                <img style="text-align:center" src="./img/task13.jpg" />
+                <p></p>
+            </div>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h2>Your WebGPU Canvas</h2>
+            <p id="webgpuStatus" class="statusline">WebGPU: initializing Task 3 preview...</p>
+            <div class="container">
+                <canvas id="webgpuCanvas" class="previewcanvas" width="800" height="600">
+                    Your browser does not support html5.
+                </canvas>
+                <div class="uiwrapper">
+                    <div class="uibox">Recursions: </div>
+                    <div class="uibox"> 0 <input id="rangeSlider" type="range" min="0" max="8" step="1" value="0" /> 8
+                    </div>
+                    <div class="uibox">Alpha: </div>
+                    <div class="uibox"> 0 <input id="alphaSlider" type="range" min="0" max="1" step="0.1" value="1" /> 1
+                    </div>
+                    <div class="uibox">Depth Test: </div>
+                    <div class="uibox"><input id="depthCheck" type="checkbox" checked /> </div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h2>Documentation</h2>
+            <p>
+                3a: Following a similar procedure to the recursion used in task 1a but adapted to an object with 4
+                vertices.
+                As a result, changing of the lambda values affects the object in a similar way except color is not
+                affected by lambda in this task.
+                Lambda changes the ratio between points causing the point created during division to be closer to one
+                point than another depending on whether lambda is closer to 0 or 1.
+                This can cause some faces to over lap when the recursion count is high.
+
+                3b: The vertex stage was modified to take a 3 dimensional vector as an input.
+                This 3 dimensional vector is then passed to the output with the z-axis being changed to fit the [0, 1]
+                clips space used by WEBGPU.
+
+                3c: Changes where made in array size, count, and stride to account for the additional z axis that each
+                vertex now needs to store.
+
+                3d: The division of the vertex size to calculate the vertex count was changed to account for the
+                additional positional data point that the vertex now needs to store.
+            </p>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="background-color:#fff4d6;">
+            <h3>Assignment Validation &amp; Authorship</h3>
+            <p>
+                To ensure academic integrity and verify original authorship and mastery of the material, exams will
+                include specific Validation Question.
+                Programming assignments are assessed on both code functionality and your understanding of the
+                implementation. To verify authorship, exams
+                will include specific "Validation Questions" related to the logic and structure of your submitted
+                assignments.
+            </p>
+            <p>
+                <b>Penalty Policy:</b> An incorrect answer to a validation question demonstrates a gap in understanding
+                the submitted work. For each
+                validation question answered incorrectly, 10% of the total points for the corresponding assignment will
+                be retroactively deducted from
+                that assignment's grade.
+            </p>
+            <p>
+                This deduction applies regardless of the original score received on the assignment. It is your
+                responsibility to ensure you can explain
+                and reproduce the logic of any code you submit.
+            </p>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="background-color:lightpink;">
+            <h3>Honor Code</h3>
+            <p>A set of ethical principles governing this course: </p>
+            <ul style="padding-left: 20px; margin: 0 0 8px 0;">
+                <li>It is <b>okay</b> to share information and knowledge with your colleagues, but</li>
+                <li>It is <b>not okay</b> to share the code,</li>
+                <li>It is <b>not okay</b> to post or give out your code to others (also in the future!),</li>
+                <li>It is <b>not okay</b> to use code from others (also from the past) for this assignment!</li>
+            </ul>
+            <p>Any noticed disregard of these principles will be sanctioned as per the Academic Integrity Policy of NJIT
+                (see below).</p>
+            <h3>Academic Integrity / Institutional Policies</h3>
+            <p>Academic Integrity is the cornerstone of higher education and is central to the ideals of this course and
+                the university. Cheating is strictly prohibited and
+                devalues the degree that you are working on. As a member of the NJIT community, it is your
+                responsibility to protect your educational investment by knowing and
+                following the academic code of integrity policy that is found at: <a
+                    href="http://www5.njit.edu/policies/sites/policies/files/academic-integrity-code.pdf">http://www5.njit.edu/policies/sites/policies/files/academic-integrity-code.pdf"</a>.
+            </p>
+            <p>Please note that it is the professional obligation and responsibility of the instructor to report any
+                academic misconduct to the Dean of Students Office. Any student
+                found in violation of the code by cheating, plagiarizing or using any online software inappropriately
+                will result in disciplinary action. This may include a failing
+                grade of F, and/or suspension or dismissal from the university. If you have any questions about the code
+                of Academic Integrity, please contact the Dean of Students
+                Office at dos@njit.edu.</p>
+        </div>
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h3>Good Luck!</h3>
+            <p> Instructor: Dr. Przemyslaw Musialski, Associate Professor<br /> Email:
+                przemyslaw.musialski@njit.edu<br /> Copyright (c) 2019-2026 Przemyslaw Musialski </p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

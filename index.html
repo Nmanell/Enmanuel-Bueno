@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Enmanuel Bueno — computer science portfolio with WebGPU graphics demos and resume." />
+  <title>Enmanuel Bueno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/site.css" />
+</head>
+<body>
+  <div id="site-nav-root" data-active="home"></div>
+  <main class="site-main">
+    <section class="hero">
+      <p class="hero__eyebrow">Computer Science · WebGPU</p>
+      <h1>Interactive graphics,<br />built in the browser.</h1>
+      <p class="hero__lead">
+        Portfolio site for NJIT Interactive Computer Graphics work — live WebGPU demos from rasterization through ray tracing, plus experience from internships and projects.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="resume.html">View resume</a>
+        <a class="btn btn--ghost" href="demos/a1-task1.html">Open demos</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="demos-heading">
+      <h2 id="demos-heading" class="section-title">WebGPU demos</h2>
+      <p class="section-sub">Each page runs the original assignment renderer with a short description — no course boilerplate.</p>
+      <div class="demo-grid">
+        <article class="demo-card">
+          <span class="demo-card__tag">A1 · Task 1</span>
+          <h3>2D Sierpinski Gasket</h3>
+          <p>Recursive 2D subdivision with color interpolation and transparency.</p>
+          <a class="demo-card__link" href="demos/a1-task1.html">Launch demo →</a>
+        </article>
+        <article class="demo-card">
+          <span class="demo-card__tag">A1 · Task 2</span>
+          <h3>HSV Circle Fan</h3>
+          <p>Triangle fan fill and line-strip outline with hue sweep.</p>
+          <a class="demo-card__link" href="demos/a1-task2.html">Launch demo →</a>
+        </article>
+        <article class="demo-card">
+          <span class="demo-card__tag">A1 · Task 3</span>
+          <h3>3D Sierpinski</h3>
+          <p>Tetrahedral recursion in 3D with depth testing.</p>
+          <a class="demo-card__link" href="demos/a1-task3.html">Launch demo →</a>
+        </article>
+        <article class="demo-card">
+          <span class="demo-card__tag">A1 · Task 4</span>
+          <h3>Sun–Earth–Moon</h3>
+          <p>Procedural spheres and hierarchical orbital animation.</p>
+          <a class="demo-card__link" href="demos/a1-task4.html">Launch demo →</a>
+        </article>
+        <article class="demo-card">
+          <span class="demo-card__tag">A2</span>
+          <h3>Phong &amp; camera</h3>
+          <p>View/projection matrices and Phong shading in WGSL.</p>
+          <a class="demo-card__link" href="demos/a2-phong.html">Launch demo →</a>
+        </article>
+        <article class="demo-card">
+          <span class="demo-card__tag">A3</span>
+          <h3>Textures &amp; normals</h3>
+          <p>Tangent space, normal maps, and material tooling.</p>
+          <a class="demo-card__link" href="demos/a3-materials.html">Launch demo →</a>
+        </article>
+        <article class="demo-card">
+          <span class="demo-card__tag">A5</span>
+          <h3>Cornell box RT</h3>
+          <p>GPU compute ray tracing with direct lighting and metal.</p>
+          <a class="demo-card__link" href="demos/a5-raytrace.html">Launch demo →</a>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>Enmanuel Bueno · GitHub Pages portfolio</p>
+  </footer>
+  <script src="assets/js/nav.js"></script>
+</body>
+</html>

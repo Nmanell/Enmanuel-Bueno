@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2D Sierpinski Gasket | Enmanuel Bueno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <base href="../31635407-Enmanue-Bueno-A1/" />
+  <link rel="stylesheet" href="resources/style.css" />
+  <script src="resources/math.js"></script>
+<script src="resources/color.js"></script>
+<script src="task11.js"></script>
+</head>
+<body class="demo-page" onload="main();">
+  <span id="title" hidden></span><span id="author" hidden></span>
+  <div id="site-nav-root" data-active="a1-task1"></div>
+  <main class="demo-main">
+    <header class="demo-intro">
+      <p class="demo-tag">WebGPU · Assignment 1</p>
+      <h1>2D Sierpinski Gasket</h1>
+      <p class="demo-lead">Recursive triangle subdivision with linear color interpolation. Adjust recursion depth, blend ratio (lambda), and alpha to explore how the gasket is built and how transparency is applied in the fragment stage.</p>
+    </header>
+    <section class="demo-stage site-card">
+              <div class="textdiv">
+            <h2>Your WebGPU Canvas</h2>
+            <p id="webgpuStatus" class="statusline">WebGPU: initializing Task 1 preview...</p>
+            <div class="container">
+                <canvas id="webgpuCanvas" class="previewcanvas" width="800" height="600">
+                    Your browser does not support html5.
+                </canvas>
+                <div class="uiwrapper">
+                    <div class="uibox">Recursions: </div>
+                    <div class="uibox"> 0 <input id="rangeSlider" type="range" min="0" max="8" step="1" value="0" /> 8
+                    </div>
+                    <div class="uibox">Lambda: </div>
+                    <div class="uibox">0 <input id="lambdaSlider" type="range" min="0" max="1" step="0.05"
+                            value="0.5" /> 1</div>
+                    <div class="uibox">Alpha: </div>
+                    <div class="uibox"> 0 <input id="alphaSlider" type="range" min="0" max="1" step="0.1" value="1" /> 1
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </main>
+  <script src="../assets/js/nav.js"></script>
+</body>
+</html>

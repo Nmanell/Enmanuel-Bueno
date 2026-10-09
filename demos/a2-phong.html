@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phong Shading & Camera | Enmanuel Bueno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <base href="../31635407-Bueno-Enmanuel-A2/" />
+  <link rel="stylesheet" href="resources/style.css" />
+  <script src="resources/color.js"></script>
+<script src="resources/perlin.js"></script>
+<script src="resources/obj-loader.js"></script>
+<script src="resources/data.js"></script>
+<script src="resources/math.js"></script>
+<script src="resources/geometry.js"></script>
+<script src="resources/webgpu-preview-common.js"></script>
+<script src="resources/webgpu-task2.js"></script>
+<script src="task2.js"></script>
+<script>
+function visibility(id) {
+  var x = document.getElementById(id);
+  if (x.style.display === "none") { x.style.display = "grid"; } else { x.style.display = "none"; }
+}
+</script>
+</head>
+<body class="demo-page" onload="main();">
+  <span id="title" hidden></span><span id="author" hidden></span>
+  <div id="site-nav-root" data-active="a2-phong"></div>
+  <main class="demo-main">
+    <header class="demo-intro">
+      <p class="demo-tag">WebGPU · Assignment 2</p>
+      <h1>Phong Lighting & Projections</h1>
+      <p class="demo-lead">Interactive 3D scene with custom view and projection matrices, view-space transforms in WGSL, and Phong shading. Switch perspective and orthographic cameras, materials, and lights to compare shading models on multiple meshes.</p>
+    </header>
+    <section class="demo-stage site-card">
+              <div class="textdiv">
+            <h3>WebGPU Canvas</h3>
+            <p id="webgpuStatus" class="statusline">WebGPU: waiting for initialization...</p>
+            <div class="container">
+                <canvas id="webgpuCanvas" width="800" height="600">
+                    Your browser does not support html5.
+                </canvas>
+
+                <!-- GUI elements  -->
+                <div class=uiwrapper>
+                    <div class="uiflex" id="flexleft">
+                        <div class="uiblock">
+                            <button onclick="visibility('uicamera');" class="uibox"
+                                style="color:white; font-weight: bold; background-color:transparent;">
+                                Camera Properties</button>
+                            <div class="uisection" id="uicamera">
+                                <div class="uibox" style="color:white;">Projection: </div>
+                                <div>
+                                    <select class="uibox" id="projectionSelect">
+                                        <option class="uibox" value="persp">Perspective</option>
+                                        <option class="uibox" value="ortho">Orthographic</option>
+                                    </select>
+                                </div>
+                                <div class="uibox" style="color:white;">Eye Rot X: </div>
+                                <div class="uibox" style="color:white;"> -90 <input id="rotXSlider" type="range"
+                                        min="-90" max="90" step="1" value="0" /> +90</div>
+                                <div class="uibox" style="color:white;">Eye Rot Y: </div>
+                                <div class="uibox" style="color:white;"> -90 <input id="rotYSlider" type="range"
+                                        min="-90" max="90" step="1" value="0" /> +90</div>
+                                <div class="uibox" style="color:white;">Up: </div>
+                                <div class="uibox" style="color:white;"> -90 <input id="rotZSlider" type="range"
+                                        min="-90" max="90" step="1" value="0" /> +90</div>
+                                <div class="uibox" style="color:white;">Dist: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="distSlider" type="range" min="0"
+                                        max="10" step="0.1" value="2" />&nbsp;10</div>
+                                <div class="uibox" style="color:white;">FovY: </div>
+                                <div class="uibox" style="color:white;"> 1 <input id="fovySlider" type="range" min="1"
+                                        max="120" step="1" value="90" />120</div>
+                                <div class="uibox" style="color:white;">Near: </div>
+                                <div class="uibox" style="color:white;"> 0.01 <input id="nearSlider" type="range"
+                                        min="0.01" max="4.99" step="0.01" value="0.1" />&nbsp;5</div>
+                                <div class="uibox" style="color:white;">Far: </div>
+                                <div class="uibox" style="color:white;">&nbsp;&nbsp; 5<input id="farSlider" type="range"
+                                        min="5" max="25" step="1" value="10" />25</div>
+                            </div>
+                        </div>
+
+                        <div class="uiblock">
+                            <button onclick="visibility('uigeometry');" class="uibox"
+                                style="color:white; font-weight: bold; background-color: transparent;">
+                                Geometry Properties</button>
+                            <div class="uisection" id="uigeometry">
+                                <div class="uibox" style="color:white;">Geometry:</div>
+                                <div>
+                                    <select class="uibox" id="geometrySelect">
+                                        <option class="uibox" value="sphere">Sphere</option>
+                                        <option class="uibox" value="cube">Cube</option>
+                                        <option class="uibox" value="teapot">Utah Teapot</option>
+                                        <option class="uibox" value="bunny">Stanford Bunny</option>
+                                    </select>
+                                </div>
+                                <div class="uibox" style="color:white;">Resolution: </div>
+                                <div class="uibox" style="color:white;"> 1 <input id="resSlider" type="range" min="1"
+                                        max="10" step="1" value="1" /> 10</div>
+                            </div>
+                        </div>
+
+                        <div class="uiblock">
+                            <button onclick="visibility('uiscene');" class="uibox"
+                                style="color:white; font-weight: bold; background-color:transparent;">
+                                Scene and Drawing Properties</button>
+                            <div class="uisection" id="uiscene">
+                                <div class="uibox" style="color:white;">Speed: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="speedSlider" type="range" min="0"
+                                        max="100" step="1" value="10" /> 100</div>
+
+                                <div class="uibox" style="color:white;">Object 1</div>
+                                <div class="uibox" style="color:white;">
+                                    <input type="checkbox" id="drawObj1" checked> Material: <select class="uibox"
+                                        id="obj1MatSelect"></select>
+                                </div>
+                                <div class="uibox" style="color:white;">Object 2</div>
+                                <div class="uibox" style="color:white;">
+                                    <input type="checkbox" id="drawObj2" checked> Material: <select class="uibox"
+                                        id="obj2MatSelect"></select>
+                                </div>
+                                <div class="uibox" style="color:white;">Object 3</div>
+                                <div class="uibox" style="color:white;">
+                                    <input type="checkbox" id="drawObj3" checked> Material: <select class="uibox"
+                                        id="obj3MatSelect"></select>
+                                </div>
+                                <div class="uibox" style="color:white;">Coord. Frame: </div>
+                                <div class="uibox" style="color:white;">
+                                    <input type="checkbox" id="drawFrame">
+                                </div>
+                                <div class="uibox" style="color:white;">Wireframe: </div>
+                                <div class="uibox" style="color:white;">
+                                    <input type="checkbox" id="drawWire">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uiflex" id="flexright">
+                        <div class="uiblock">
+                            <button onclick="visibility('uishading');" class="uibox"
+                                style="color:white; font-weight: bold; background-color:transparent;">
+                                Shading Properties</button>
+                            <div class="uisection" id="uishading">
+                                <div class="uibox" style="color:white;">Shading: </div>
+                                <select class="uibox" id="shadingSelect">
+                                    <option class="uibox" value="0">Gouraud</option>
+                                    <option class="uibox" value="1">Phong</option>
+                                    <option class="uibox" value="2">Flat</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="uiblock">
+                            <button onclick="visibility('uilight');" class="uibox"
+                                style="color:white; font-weight: bold; background-color:transparent;">
+                                Light Properties</button>
+                            <div class="uisection" id="uilight">
+                                <div class="uibox" style="color:white;">Draw Bulb:</div>
+                                <div class="uibox" style="color:white;"><input type="checkbox" checked id="drawBulb">
+                                </div>
+                                <div class="uibox" style="color:white;">Light Color:</div>
+                                <div class="uibox" style="color:white;">
+                                    <input type="range" id="lightSlider" class="uibox" min="0" max="1" step="0.01"
+                                        value="1" style="width: 80%" />
+                                    <input type="color" id="lightColor" class="uibox" value="#ffffff"
+                                        style="width: 35px" />
+                                </div>
+                                <div class="uibox" style="color:white;">Light Rot X: </div>
+                                <div class="uibox" style="color:white;">
+                                    -90 <input id="lightRotXSlider" type="range" min="-90" max="90" step="1"
+                                        value="0" /> +90</div>
+                                <div class="uibox" style="color:white;">Light Rot Z: </div>
+                                <div class="uibox" style="color:white;"> -90 <input id="lightRotZSlider" type="range"
+                                        min="-90" max="90" step="1" value="0" /> +90</div>
+                                <div class="uibox" style="color:white;">Light Dist: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="lightDistSlider" type="range"
+                                        min="0" max="10" step="0.1" value="1" /> +10</div>
+                            </div>
+                        </div>
+
+                        <div class="uiblock">
+                            <button onclick="visibility('uimaterial');" class="uibox"
+                                style="color:white; font-weight: bold; background-color:transparent;">
+                                Material Properties</button>
+                            <div class="uisection" id="uimaterial">
+                                <div class="uibox" style="color:white;">Material: </div>
+                                <div>
+                                    <select class="uibox" id="materialSelect">
+                                        <!-- options come from the script -->
+                                    </select>
+                                </div>
+
+                                <div class="uibox" style="color:white;">Ambient (ka):</div>
+                                <div class="uibox" style="color:white;">
+
+                                    <div class="uibox" style="width: max-content;">
+                                        rgb: [&nbsp;
+                                        <div class="uibox" id="kaR" style="width: 25px;">0.10</div>,&nbsp;
+                                        <div class="uibox" id="kaG" style="width: 25px;">0.10</div>,&nbsp;
+                                        <div class="uibox" id="kaB" style="width: 25px;">0.10</div>
+                                        &nbsp;]
+                                    </div>
+                                    <input class="uibox" type="color" id="kaColor" value="#F6B73C"
+                                        style="width: 35px;" />
+                                </div>
+                                <div class="uibox" style="color:white;">Diffuse (kd):</div>
+                                <div class="uibox" style="color:white;">
+                                    <div class="uibox" style="width: max-content;">
+                                        rgb: [&nbsp;
+                                        <div class="uibox" id="kdR" style="width: 25px;">0.10</div>,&nbsp;
+                                        <div class="uibox" id="kdG" style="width: 25px;">0.10</div>,&nbsp;
+                                        <div class="uibox" id="kdB" style="width: 25px;">0.10</div>
+                                        &nbsp;]
+                                    </div>
+                                    <input class="uibox" type="color" id="kdColor" value="#F6B73C"
+                                        style="width: 35px;" />
+                                </div>
+                                <div class="uibox" style="color:white;">Specular (ks):</div>
+                                <div class="uibox" style="color:white;">
+                                    <div class="uibox" style="width: max-content;">
+                                        rgb: [&nbsp;
+                                        <div class="uibox" id="ksR" style="width: 25px;">0.10</div>,&nbsp;
+                                        <div class="uibox" id="ksG" style="width: 25px;">0.10</div>,&nbsp;
+                                        <div class="uibox" id="ksB" style="width: 25px;">0.10</div>
+                                        &nbsp;]
+                                    </div>
+                                    <input class="uibox" type="color" id="ksColor" value="#F6B73C"
+                                        style="width: 35px;" />
+                                </div>
+                                <div class="uibox" style="color:white;">Power (q):</div>
+                                <div class="uibox" style="color:white;">
+                                    <div class="uibox" id="qsValue" style="width: 25px;">0.1</div>
+                                    <input id="qsSlider" type="range" min="1" max="200" step="0.1" value="10"
+                                        style="width: 155px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        </div>
+    </section>
+  </main>
+  <script src="../assets/js/nav.js"></script>
+</body>
+</html>

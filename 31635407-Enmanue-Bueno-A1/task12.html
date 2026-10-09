@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./resources/style.css">
+    <title>
+        A1 | Bueno, Enmanuel, 31635407
+    </title>
+
+    <script type="text/javascript" src="./resources/math.js"></script>
+    <script type="text/javascript" src="./resources/color.js"></script>
+    <script type="text/javascript" src="task12.js"></script>
+</head>
+
+<body onload="main();">
+    <div class="content">
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h1>New Jersey Institute of Technology<br /> Interactive Computer Graphics CS 438 / CS 657</h1>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="display: initial;">
+            <h2>Assignment 1</h2>
+            <p>
+                Author: Bueno, Enmanuel, 31635407
+            </p>
+            <h3>Date: <b style="color:tomato;">2/11/2026</b></h3>
+            <h3>Due: <b style="color:tomato;">2/25/2026</b></h3>
+            <p>Go to <a href="index.html">Assignment Home</a> | <a href="task11.html">Task 1</a> | <a
+                    href="task12.html">Task 2</a> | <a href="task13.html">Task 3</a> | <a href="task14.html">Task 4</a>
+            </p>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="display: initial;">
+            <div class="taskdiv">
+                <h2>Task 2 (8 points)</h2>
+                <p>
+                    <b>Search for TODO_A1 in the JS file to find all tasks in the code!</b>
+                </p>
+                <p>Circle drawing and color interpolation:</p>
+                <p>
+                    2a: Create a circle geometry which can be rendered using triangle-fan topology. Use the arguments of
+                    the function to specify the radius of the circle and the number of linear segments to approximate it
+                    (3 points).
+                    Interpolate the color values on the circle linearly using the HUE of the <a
+                        href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV color-space</a> (use function
+                    hsvToRgb(.,.,.)) (2 points).
+                </p>
+                <p>
+                    2b: Adapt the rendering function to render the circle geometry as a triangle fan. Use the same
+                    geometry to render a black outline of the circle as a line strip.
+                    Take care of proper management of the position/color input layout for both passes (2 points).
+                    Your result should look like on the image below.
+                </p>
+                <p>
+                    2c: Why is the displayed circle not round? Explain in the documentation below (1 point).
+                </p>
+                <img style="text-align:center" src="./img/task12.jpg" />
+            </div>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h2>Your WebGPU Canvas</h2>
+            <p id="webgpuStatus" class="statusline">WebGPU: initializing Task 2 preview...</p>
+            <div class="container">
+                <canvas id="webgpuCanvas" class="previewcanvas" width="800" height="600">
+                    Your browser does not support html5.
+                </canvas>
+                <div class="uiwrapper">
+                    <div class="uibox">Fill Triangles: </div>
+                    <div class="uibox"><input id="drawCheck" type="checkbox" checked /> </div>
+                    <div class="uibox">Segments: </div>
+                    <div class="uibox"> 0 <input id="rangeSlider" type="range" min="3" max="100" step="1" value="3" />
+                        100</div>
+                    <div class="uibox">Alpha: </div>
+                    <div class="uibox"> 0 <input id="alphaSlider" type="range" min="0" max="1" step="0.1" value="1" /> 1
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h2>Documentation</h2>
+            <p>
+                2a: The circle geometry for triangle fan rendering is calculated by using a formula to compute the x and
+                y
+                coordinates of a point on the edge of a circle
+                with the segments being used to divide the circle into evenly spaced angles around the cicle, and
+                setting the center at the origin (0, 0).
+
+                2b: Since webgpu does not support the triangle fan rendering pipeline, triangle list is used instead for
+                the
+                circle fill and line strip is used for the circle outline.
+                When the frame is rendered for the circle outline, the first vertex is skipped since it is set as the
+                center of the circle which should not be included in the outline.
+                Additionally, when creating the buffer to be used for rendering, the color of these points are changed
+                to be black instead of the rgb colors used to create the gradient.
+                The buffer used for rending the circle's fill is modified from the one created in circlegeometery since
+                triangle fan rending cannot be used.
+                The new buffer consists of sets of three vertices, the origin, an outer vertex and the next outer vertex
+                in the sequence.
+                This replicates the triangle fan effect using the triangle list rendering pipeline.
+
+                2c: The displayed circle is not round since it is actually made up of many triangles and is not a real
+                circle.
+                This can be seen when the segment count is low with the slider's lowest segment count being a triangle.
+                Howver, when the segment count is high, the edges of the polygon are so small that it appears to be a
+                circle.
+            </p>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="background-color:#fff4d6;">
+            <h3>Assignment Validation &amp; Authorship</h3>
+            <p>
+                To ensure academic integrity and verify original authorship and mastery of the material, exams will
+                include specific Validation Question.
+                Programming assignments are assessed on both code functionality and your understanding of the
+                implementation. To verify authorship, exams
+                will include specific "Validation Questions" related to the logic and structure of your submitted
+                assignments.
+            </p>
+            <p>
+                <b>Penalty Policy:</b> An incorrect answer to a validation question demonstrates a gap in understanding
+                the submitted work. For each
+                validation question answered incorrectly, 10% of the total points for the corresponding assignment will
+                be retroactively deducted from
+                that assignment's grade.
+            </p>
+            <p>
+                This deduction applies regardless of the original score received on the assignment. It is your
+                responsibility to ensure you can explain
+                and reproduce the logic of any code you submit.
+            </p>
+        </div>
+
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv" style="background-color:lightpink;">
+            <h3>Honor Code</h3>
+            <p>A set of ethical principles governing this course: </p>
+            <ul style="padding-left: 20px; margin: 0 0 8px 0;">
+                <li>It is <b>okay</b> to share information and knowledge with your colleagues, but</li>
+                <li>It is <b>not okay</b> to share the code,</li>
+                <li>It is <b>not okay</b> to post or give out your code to others (also in the future!),</li>
+                <li>It is <b>not okay</b> to use code from others (also from the past) for this assignment!</li>
+            </ul>
+            <p>Any noticed disregard of these principles will be sanctioned as per the Academic Integrity Policy of NJIT
+                (see below).</p>
+            <h3>Academic Integrity / Institutional Policies</h3>
+            <p>Academic Integrity is the cornerstone of higher education and is central to the ideals of this course and
+                the university. Cheating is strictly prohibited and
+                devalues the degree that you are working on. As a member of the NJIT community, it is your
+                responsibility to protect your educational investment by knowing and
+                following the academic code of integrity policy that is found at: <a
+                    href="http://www5.njit.edu/policies/sites/policies/files/academic-integrity-code.pdf">http://www5.njit.edu/policies/sites/policies/files/academic-integrity-code.pdf"</a>.
+            </p>
+            <p>Please note that it is the professional obligation and responsibility of the instructor to report any
+                academic misconduct to the Dean of Students Office. Any student
+                found in violation of the code by cheating, plagiarizing or using any online software inappropriately
+                will result in disciplinary action. This may include a failing
+                grade of F, and/or suspension or dismissal from the university. If you have any questions about the code
+                of Academic Integrity, please contact the Dean of Students
+                Office at dos@njit.edu.</p>
+        </div>
+        <!--------------------------------------------------------------------------->
+        <div class="textdiv">
+            <h3>Good Luck!</h3>
+            <p> Instructor: Dr. Przemyslaw Musialski, Associate Professor<br /> Email:
+                przemyslaw.musialski@njit.edu<br /> Copyright (c) 2019-2026 Przemyslaw Musialski </p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

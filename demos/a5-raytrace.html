@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cornell Box Ray Tracer | Enmanuel Bueno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <base href="../a5_student/" />
+  <link rel="stylesheet" href="resources/style.css" />
+  <script src="resources/utils.js"></script>
+<script src="resources/color.js"></script>
+<script src="resources/perlin.js"></script>
+<script src="resources/math.js"></script>
+<script src="resources/scene.js"></script>
+<script src="task5.js"></script>
+<script src="resources/webgpu-preview-common.js"></script>
+<script src="resources/webgpu-task5.js"></script>
+</head>
+<body class="demo-page" onload="main();">
+  <span id="title" hidden></span><span id="author" hidden></span>
+  <div id="site-nav-root" data-active="a5-raytrace"></div>
+  <main class="demo-main">
+    <header class="demo-intro">
+      <p class="demo-tag">WebGPU · Assignment 5</p>
+      <h1>Compute-Shaded Ray Tracer</h1>
+      <p class="demo-lead">A Cornell box path traced on the GPU with sphere intersection, Lambert–Phong direct lighting via next-event estimation, and mirror reflections on metal. Drag to orbit the camera; use the controls below for FOV, bounces, NEE, and progressive accumulation.</p>
+    </header>
+    <section class="demo-stage site-card">
+      <div class="canvasdiv">
+            <canvas id="canvas" width="800" height="800"></canvas>
+            <div id="webgpuStatus"></div>
+        </div>
+        <div class="demo-controls-panel">
+                <p>Drag the canvas to orbit. Right-drag or scroll wheel to dolly.</p>
+                <p>
+                    Vertical FOV: <span id="fovValue">50°</span>
+                    <input id="fovSlider" type="range" min="20" max="110" step="1" value="50" />
+                </p>
+                <p>
+                    Max bounces: <span id="bouncesValue">4</span>
+                    <input id="bouncesSlider" type="range" min="1" max="8" step="1" value="4" />
+                </p>
+                <p>
+                    <label>
+                        <input id="neeToggle" type="checkbox" checked />
+                        Next-event estimation (direct lighting)
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input id="accumToggle" type="checkbox" checked />
+                        Multi-frame accumulation
+                    </label>
+                </p>
+                <p>
+                    <button id="resetButton" type="button">Reset accumulation</button>
+                    <button id="saveRenderButton" type="button">Save reference render (PNG)</button>
+                </p>
+                <p>frame: <span id="frameDisplay">0</span></p>
+        </div>
+    </section>
+  </main>
+  <script src="../assets/js/nav.js"></script>
+</body>
+</html>

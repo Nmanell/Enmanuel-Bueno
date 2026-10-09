@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sun–Earth–Moon Scene | Enmanuel Bueno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <base href="../31635407-Enmanue-Bueno-A1/" />
+  <link rel="stylesheet" href="resources/style.css" />
+  <script src="resources/color.js"></script>
+<script src="resources/perlin.js"></script>
+<script src="resources/math.js"></script>
+<script src="resources/webgpu-preview-common.js"></script>
+<script src="resources/webgpu-task14.js"></script>
+<script src="task14.js"></script>
+</head>
+<body class="demo-page" onload="main();">
+  <span id="title" hidden></span><span id="author" hidden></span>
+  <div id="site-nav-root" data-active="a1-task4"></div>
+  <main class="demo-main">
+    <header class="demo-intro">
+      <p class="demo-tag">WebGPU · Assignment 1</p>
+      <h1>Procedural Sphere & Orbital Motion</h1>
+      <p class="demo-lead">UV-sphere geometry with noise-based vertex colors drives a miniature solar system: Earth orbits the Sun with axial tilt and spin, and the Moon orbits Earth. Use the overlay controls for animation speed, toggles, and depth settings.</p>
+    </header>
+    <section class="demo-stage site-card">
+              <div class="textdiv">
+            <h3>WebGPU Canvas</h3>
+            <p id="webgpuStatus" class="statusline">WebGPU: initializing Task 4 preview...</p>
+            <div class="container">
+                <canvas id="webgpuCanvas" class="previewcanvas" width="800" height="800">
+                    Your browser does not support html5.
+                </canvas>
+                <div class="uiwrapper task14-uiwrapper">
+                    <div class="uiflex" id="flexleft">
+                        <div class="uiblock">
+                            <div class="uisection" id="uicamera">
+                                <div class="uibox" style="color:white;">Speed: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="rangeSlider" type="range" min="0"
+                                        max="100" step="1" value="10" /> 100</div>
+                                <div class="uibox" style="color:white;">Rot X: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="rotXSlider" type="range" min="0"
+                                        max="90" step="1" value="0" /> 90</div>
+                                <div class="uibox" style="color:white;">Rot Y: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="rotYSlider" type="range" min="0"
+                                        max="90" step="1" value="0" /> 90</div>
+                                <div class="uibox" style="color:white;">Rot Z: </div>
+                                <div class="uibox" style="color:white;"> 0 <input id="rotZSlider" type="range" min="0"
+                                        max="90" step="1" value="0" /> 90</div>
+                                <div class="uibox" style="color:white;">Sun: </div>
+                                <div class="uibox" style="color:white;"><input type="checkbox" id="drawSun" checked \>
+                                </div>
+                                <div class="uibox" style="color:white;">Earth: </div>
+                                <div class="uibox" style="color:white;"><input type="checkbox" id="drawEarth" checked \>
+                                </div>
+                                <div class="uibox" style="color:white;">Moon: </div>
+                                <div class="uibox" style="color:white;"><input type="checkbox" id="drawMoon" checked \>
+                                </div>
+                                <div class="uibox" style="color:white;">Wireframe: </div>
+                                <div class="uibox" style="color:white;"><input type="checkbox" id="drawWire" \> </div>
+                                <div class="uibox" style="color:white;">Depth Test: </div>
+                                <div class="uibox"><input id="depthCheck" type="checkbox" checked /> </div>
+                                <div class="uibox" style="color:white;">Face Culling: </div>
+                                <div class="uibox">
+                                    <select class="uibox" id="cullface">
+                                        <option class="uibox" value="none">None</option>
+                                        <option class="uibox" value="front">Front</option>
+                                        <option class="uibox" value="back">Back</option>
+                                        <option class="uibox" value="both">Front and Back</option>
+                                    </select>
+                                </div>
+                                <div class="uibox" style="color:white;">Face Winding: </div>
+                                <div class="uibox">
+                                    <select class="uibox" id="frontface">
+                                        <option class="uibox" value="ccw">CCW</option>
+                                        <option class="uibox" value="cw">CW</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </main>
+  <script src="../assets/js/nav.js"></script>
+</body>
+</html>
