@@ -1,16 +1,12 @@
 (function () {
   var DEMOS = [
-    { group: "Assignment 1", items: [
-      { href: "demos/a1-task1.html", id: "a1-task1", label: "2D Sierpinski Gasket" },
-      { href: "demos/a1-task2.html", id: "a1-task2", label: "HSV Circle Fan" },
-      { href: "demos/a1-task3.html", id: "a1-task3", label: "3D Sierpinski Tetrahedra" },
-      { href: "demos/a1-task4.html", id: "a1-task4", label: "Sun–Earth–Moon Scene" }
-    ]},
-    { group: "Later assignments", items: [
+    { href: "demos/a1-task1.html", id: "a1-task1", label: "2D Sierpinski Gasket" },
+    { href: "demos/a1-task2.html", id: "a1-task2", label: "HSV Circle Fan" },
+    { href: "demos/a1-task3.html", id: "a1-task3", label: "3D Sierpinski Tetrahedra" },
+    { href: "demos/a1-task4.html", id: "a1-task4", label: "Sun–Earth–Moon Scene" }
       { href: "demos/a2-phong.html", id: "a2-phong", label: "Phong Shading & Camera" },
-      { href: "demos/a3-materials.html", id: "a3-materials", label: "Textures & Normal Maps" },
-      { href: "demos/a5-raytrace.html", id: "a5-raytrace", label: "Cornell Box Ray Tracer" }
-    ]}
+    { href: "demos/a3-materials.html", id: "a3-materials", label: "Textures & Normal Maps" },
+    { href: "demos/a5-raytrace.html", id: "a5-raytrace", label: "Cornell Box Ray Tracer" }
   ];
 
   function prefix() {
