@@ -89,8 +89,8 @@ fn vs_main(in : VsIn) -> VsOut {
     // out.pos / out.normal (used by Gouraud/Phong/Flat shading).
 
     // *** begin code, replace the code below
-    let posVS4 = g.u_modelview * vec4<f32>(in.a_position, 1.0);
-    let normalVS = normalize((g.u_normalmat * vec4<f32>(in.a_normal, 1.0)).xyz);
+    let posVS4 = g.u_modelview * vec4<f32>(localPos, 1.0);
+    let normalVS = normalize((g.u_normalmat * vec4<f32>(in.a_normal, 0.0)).xyz);
     // *** end code
 
     // out.position: clip-space position for rasterization (with WebGPU z-remap).

@@ -276,67 +276,19 @@ function main() {
                 ? (previewCanvas.width / previewCanvas.height)
                 : (800 / 600);
 
+            // math.js stores matrices as rows; flatten() handles the GPU transpose.
+            // Keep OpenGL depth here: the shader remaps clip z to WebGPU's [0, w].
             switch (document.getElementById("projectionSelect").value) {
                 case "persp":
+                    return perspective(fovy, aspectRatio, near, far);
 
-                    // *** TODO_A2 *** Task 1b ***
-                    // Using the values above, implement the perspective projection matrix
-                    // and replace the standard projection matrix below.
-
-                    // *** begin code, replace the code below
-                    //initializing variables to be used in perspective matrix
-                    let radp = fovy * Math.PI / 180;
-                    let t = near * Math.tan(radp / 2);
-                    let b = -t;
-                    let r = t * aspectRatio;
-                    let l = -r;
-                    let rl = 1 / (r - l);
-                    let tb = 1 / (t - b);
-                    let fn = 1 / (far - near);
-                    let lr = 1 / (l - r);
-                    let bt = 1 / (b - t);
-                    let nf = 1 / (near - far);
-                    //creating perspective matrix
-                    let perspective = mat4([
-                        2 * near * rl, 0, 0, 0,
-                        0, 2 * near * tb, 0, 0,
-                        (l + r) * lr, (b + t) * bt, -(far + near) * nf, -1,
-                        0, 0, -2 * far * near * fn, 0
-                    ]);
-
-                    return perspective;
-                // *** end code
-
-
-                case "ortho":
-
-                    // *** TODO_A2 *** Task 1c ***
-                    // Using the values above, implement the orthographic projection matrix
-                    // and replace the standard projection matrix below.
-                    // Derive the values for left, right, top, bottom from dist and fovy.
-                    // Keep near/far from the corresponding sliders for depth clipping.
-
-                    // *** begin code, replace the code below
-                    //initializing variables to be used in orthogonal matrix
-                    let rado = fovy * Math.PI / 180;
-                    let top = near * Math.tan(rado / 2);
-                    let bottom = -top;
+                case "ortho": {
+                    // Match perspective framing at the camera's target distance.
+                    // The near plane controls clipping, not the visible view size.
+                    let top = dist * Math.tan(radians(fovy) / 2);
                     let right = top * aspectRatio;
-                    let left = -right;
-                    //variables for easier calculations
-                    let rightLeft = 1 / (right - left);
-                    let topBottom = 1 / (top - bottom);
-                    let frontNear = 1 / (far - near);
-                    //creating orthogonal matrix
-                    let orthogonal = mat4([
-                        2 * rightLeft, 0, 0, 0,
-                        0, 2 * topBottom, 0, 0,
-                        0, 0, -2 * frontNear, 0,
-                        -(left + right) * rightLeft, -(top + bottom) * topBottom, -(far + near) * frontNear, 1
-                    ]);
-
-                    return orthogonal;
-                // *** end code
+                    return ortho(-right, right, -top, top, near, far);
+                }
             }
         }
     };
